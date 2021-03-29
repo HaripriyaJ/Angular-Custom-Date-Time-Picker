@@ -1,0 +1,31 @@
+<div class="datetime-picker" [hidden]="collapseDateTimePicker" id="datetime-picker">
+    <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
+        (ngModelChange)="updateDate()" (selectionDone)="dateSelectionDone()" [yearColLimit]="yearColLimit">
+    </datepicker>
+
+    <timepicker [hidden]="!isTimeVisible" [(ngModel)]="time" (ngModelChange)="updateTime()"
+        [showMeridian]="showMeridian" [minuteStep]="minuteStep">
+    </timepicker>
+
+    <div class="datetime-options">
+        <div class="flexbox space-between">
+            <div class="flexbox space-evenly">
+                <!-- Display calendar-->
+                <span [hidden]="isDateVisible" (click)="showDate()" tooltip="Go to calendar" placement="bottom">
+                    <i class="fa fa-calendar fa-lg"></i></span>
+                <!-- Display clock -->
+                <span [hidden]="!isDateVisible" (click)="showTime()" tooltip="Go to clock" placement="bottom">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            </div>
+            <div class="flexbox space-between">
+                <!-- Display with calendar-->
+                <span (click)="today()" [hidden]="!isDateVisible" tooltip="Current date" placement="bottom">Today</span>
+                <!-- Display with clock -->
+                <span (click)="now()" [hidden]="isDateVisible" tooltip="Current time" placement="bottom">Now</span>
+            </div>
+            <div class="flexbox flex-end">
+                <span (click)="clear()" class="clear">x Clear</span>
+            </div>
+        </div>
+    </div>
+</div>
