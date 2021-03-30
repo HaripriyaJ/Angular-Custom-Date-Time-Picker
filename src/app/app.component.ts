@@ -9,7 +9,6 @@ import { DateTimePickerConfig, DateTimeValueEmitter } from './DateTime';
 
 export class AppComponent  {
   status;
-  dateTime;
 
   dateTimePickerConfig: DateTimePickerConfig = {
     showMeridian: true,
@@ -17,6 +16,8 @@ export class AppComponent  {
     dateTime: localStorage.getItem("dateTime")
   }
 
+  dateTime = this.dateTimePickerConfig.dateTime;
+  
   handle(e) {
     return e
   }

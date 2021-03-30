@@ -49,11 +49,14 @@ export class CustomDateTimePickerComponent implements OnInit {
   dateSelectionDone(finalDate, finalTime) {
     this.isDateVisible = false;
     this.dateTime = DateTime.getDateTime(finalDate, finalTime);
-
-    localStorage.setItem('dateTime', this.dateTime); // update selected value
     
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
     this.collapseDateTimePicker = true;
+    
+    /* API call */
+
+    localStorage.setItem('dateTime', this.dateTime); // update selected value
+    location.reload(); // simulate value updation
   }
 
   showDate() {
@@ -69,16 +72,22 @@ export class CustomDateTimePickerComponent implements OnInit {
   now() {
     this.time = new Date(DateTime.currentDateTime());
     this.dateTime = DateTime.currentDateTime();
+    this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
   }
 
   today() {
     this.date = new Date(DateTime.currentDate());
     this.dateTime = DateTime.currentDateTime();
+    this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
   }
   
   clear() {
-    this.dateTime = null;
     this.collapseDateTimePicker = true;
-    // do something on clear displayed selected value
+    this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: null});
+
+    /* API call */
+    
+    localStorage.removeItem('dateTime'); // update value
+    location.reload(); // simulate value updation
   }
 }
