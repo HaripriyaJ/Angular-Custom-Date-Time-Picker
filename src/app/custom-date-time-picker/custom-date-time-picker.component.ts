@@ -27,6 +27,8 @@ export class CustomDateTimePickerComponent implements OnInit {
   dateTime: string;
   defaultTimeSetting: string = "to"; // setting default time value to choose
 
+  parentElement: EventTarget;
+
   ngOnInit() {
     DateTime.dateTimeFormats = {
       dateTimeFormat: this.dateTimePickerConfig.dateTimeFormat, 
@@ -45,6 +47,8 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.time = this.dateTimePickerConfig.dateTime ?  
       new Date(DateTime.assignDefaultDate(this.dateTime.split(" ").slice(1, ).join(" "))) :
       new Date(DateTime.assignDefaultTime(this.defaultTimeSetting, this.date));
+    
+    this.parentElement = this.dateTimePickerConfig.invokeElement;
   }
   
   dateSelectionDone(finalDate, finalTime) {
@@ -52,7 +56,7 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.updateDateTime(finalDate, finalTime);
     
     /* API call */
-    localStorage.setItem('dateTime', this.dateTime); // update selected value
+    localStorage.setItem('dateTime', this.dateTime);
     
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
     this.collapseDateTimePicker = true;
@@ -91,12 +95,11 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: null});
 
     /* API call */
-    localStorage.removeItem('dateTime'); // update value
+    localStorage.removeItem('dateTime');
   }
 
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
-    const parentElement = this.dateTimePickerConfig.invokeElement;
-    if(parentElement !== event.target && !this.insideClick) {
+    if(this.parentElement !== event.target && !this.insideClick) {
       this.collapseDateTimePicker = true;
       this.insideClick = false;
     }
