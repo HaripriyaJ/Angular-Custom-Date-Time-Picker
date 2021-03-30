@@ -23,6 +23,7 @@ export class CustomDateTimePickerComponent implements OnInit {
 
   @Input() dateTimePickerConfig: DateTimePickerConfig;
   @Output() datetimeSelectionComplete = new EventEmitter<DateTimeValueEmitter>();
+  @Output() toggleView = new EventEmitter<boolean>();
 
   dateTime: string;
   defaultTimeSetting: string = "to"; // setting default time value to choose
@@ -49,6 +50,8 @@ export class CustomDateTimePickerComponent implements OnInit {
       new Date(DateTime.assignDefaultTime(this.defaultTimeSetting, this.date));
     
     this.parentElement = this.dateTimePickerConfig.invokeElement;
+
+    this.toggleView.emit(true);
   }
   
   dateSelectionDone(finalDate, finalTime) {
@@ -60,6 +63,7 @@ export class CustomDateTimePickerComponent implements OnInit {
     
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
     this.collapseDateTimePicker = true;
+    this.toggleView.emit(false);
   }
 
   updateDateTime(date, time) {
@@ -102,6 +106,7 @@ export class CustomDateTimePickerComponent implements OnInit {
     if(this.parentElement !== event.target && !this.insideClick) {
       this.collapseDateTimePicker = true;
       this.insideClick = false;
+      this.toggleView.emit(false);
     }
   }
 

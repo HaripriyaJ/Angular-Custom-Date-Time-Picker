@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DateTimePickerConfig, DateTimeValueEmitter, OpenPickerEmitterConfig } from './DateTime';
 
 @Component({
@@ -9,8 +9,13 @@ import { DateTimePickerConfig, DateTimeValueEmitter, OpenPickerEmitterConfig } f
 
 export class AppComponent  {
   status;
-  dateTimePickerConfig: DateTimePickerConfig;
   dateTime;
+
+  // Inputs to picker
+  dateTimePickerConfig: DateTimePickerConfig;
+
+  // Inputs to Directive
+  updateToggleStatus: boolean;
 
   constructor() {
     this.updateConfig();
@@ -33,5 +38,9 @@ export class AppComponent  {
       dateTime: localStorage.getItem("dateTime"),
       invokeElement: invokeElement
     }
+  }
+
+  toggleView(status: boolean) {
+    this.updateToggleStatus = status;
   }
 };
