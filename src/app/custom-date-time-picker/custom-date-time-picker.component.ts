@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, } from '@angular/core';
 import { DateTime, DateTimePickerConfig, DateTimeValueEmitter } from '../DateTime';
 
 @Component({
@@ -15,6 +15,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   isTimeVisible:boolean = false; // hide time picker by default
   collapseDateTimePicker: boolean = false; // display or hide picker
   showMeridian: boolean = false; 
+  insideClick = false;
 
   minuteStep = 1; // increments minute by 1 
   yearRange = 20; // display 20 years at a time
@@ -91,5 +92,17 @@ export class CustomDateTimePickerComponent implements OnInit {
 
     /* API call */
     localStorage.removeItem('dateTime'); // update value
+  }
+
+  @HostListener('document:click', ['$event']) outsideClick(event: Event) {
+    const parentElement = this.dateTimePickerConfig.invokeElement;
+    if(parentElement !== event.target && !this.insideClick) {
+      this.collapseDateTimePicker = true;
+      this.insideClick = false;
+    }
+  }
+
+  pickerClick() {
+    this.insideClick = true;
   }
 }

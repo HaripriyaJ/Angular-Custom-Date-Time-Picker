@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DateTimePickerConfig, DateTimeValueEmitter } from './DateTime';
+import { DateTimePickerConfig, DateTimeValueEmitter, OpenPickerEmitterConfig } from './DateTime';
 
 @Component({
   selector: 'app-root',
@@ -16,20 +16,22 @@ export class AppComponent  {
     this.updateConfig();
   }
   
-  handle(e) {
-    return e
+  openPicker(e: OpenPickerEmitterConfig) {
+    this.updateConfig(e.parentElement);
+    return e.status
   }
 
-  selectionDone(e: DateTimeValueEmitter) {
+  afterPickerValueSelection(e: DateTimeValueEmitter) {
     this.updateConfig();
     return e.dateTimeValue;
   } 
 
-  private updateConfig() {
+  private updateConfig(invokeElement?) {
     this.dateTimePickerConfig = {
       showMeridian: true,
       dateTimeFormat: "YYYY-MMM-DD hh:mm a",
-      dateTime: localStorage.getItem("dateTime")
+      dateTime: localStorage.getItem("dateTime"),
+      invokeElement: invokeElement
     }
   }
 };
