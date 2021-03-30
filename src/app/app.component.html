@@ -1,6 +1,7 @@
 <div style="margin: 10px;">
     <input type="text" name="picker" id="" class="form-control" readonly placeholder="{{dateTime || 'Datetime picker'}}"
         customDateTimePicker (openDateTimePicker)="status = handle($event)">
-    <custom-date-time-picker *ngIf="status" (datetimeSelectionComplete)="dateTime = selectionDone($event)" [dateTimePickerConfig]="dateTimePickerConfig">
+    <custom-date-time-picker *ngIf="status" (datetimeSelectionComplete)="dateTime = selectionDone($event)"
+        [dateTimePickerConfig]="dateTimePickerConfig">
     </custom-date-time-picker>
 </div>

@@ -48,15 +48,19 @@ export class CustomDateTimePickerComponent implements OnInit {
   
   dateSelectionDone(finalDate, finalTime) {
     this.isDateVisible = false;
-    this.dateTime = DateTime.getDateTime(finalDate, finalTime);
+    this.updateDateTime(finalDate, finalTime);
+    
+    /* API call */
+    localStorage.setItem('dateTime', this.dateTime); // update selected value
     
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
     this.collapseDateTimePicker = true;
-    
-    /* API call */
+  }
 
-    localStorage.setItem('dateTime', this.dateTime); // update selected value
-    location.reload(); // simulate value updation
+  updateDateTime(date, time) {
+    this.date = date;
+    this.time = time;
+    this.dateTime = DateTime.getDateTime(date, time);
   }
 
   showDate() {
@@ -71,13 +75,13 @@ export class CustomDateTimePickerComponent implements OnInit {
 
   now() {
     this.time = new Date(DateTime.currentDateTime());
-    this.dateTime = DateTime.currentDateTime();
+    this.dateTime = DateTime.getDateTime(this.date, this.time);
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
   }
 
   today() {
     this.date = new Date(DateTime.currentDate());
-    this.dateTime = DateTime.currentDateTime();
+    this.dateTime = DateTime.getDateTime(this.date, this.time);
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
   }
   
@@ -86,8 +90,6 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: null});
 
     /* API call */
-    
     localStorage.removeItem('dateTime'); // update value
-    location.reload(); // simulate value updation
   }
 }
