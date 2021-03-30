@@ -10,7 +10,7 @@ import { PopoverModule} from 'ngx-bootstrap/popover';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { PickerDirective } from './directive/picker.directive';
+import { PickerDirective } from './custom-date-time-picker/custom-date-time-picker.directive';
 import { CustomDateTimePickerComponent } from './custom-date-time-picker/custom-date-time-picker.component'
 
 @NgModule({

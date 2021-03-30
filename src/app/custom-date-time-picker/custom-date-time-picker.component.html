@@ -1,10 +1,9 @@
 <div class="datetime-picker" [hidden]="collapseDateTimePicker" id="datetime-picker">
     <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
-        (ngModelChange)="updateDate()" (selectionDone)="dateSelectionDone()" [yearColLimit]="yearColLimit">
+        (selectionDone)="dateSelectionDone($event, time)" [yearColLimit]="yearColLimit">
     </datepicker>
 
-    <timepicker [hidden]="!isTimeVisible" [(ngModel)]="time" (ngModelChange)="updateTime()"
-        [showMeridian]="showMeridian" [minuteStep]="minuteStep">
+    <timepicker [hidden]="!isTimeVisible" [(ngModel)]="time" [showMeridian]="showMeridian" [minuteStep]="minuteStep">
     </timepicker>
 
     <div class="datetime-options">
@@ -24,7 +23,8 @@
                 <span (click)="now()" [hidden]="isDateVisible" tooltip="Current time" placement="bottom">Now</span>
             </div>
             <div class="flexbox flex-end">
-                <span (click)="clear()" class="clear">x Clear</span>
+                <span (click)="clear()" class="clear" [hidden]="!isDateVisible">x Clear</span>
+                <span (click)="dateSelectionDone(date, time)" class="clear" [hidden]="isDateVisible">Done</span>
             </div>
         </div>
     </div>

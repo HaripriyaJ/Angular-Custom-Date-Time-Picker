@@ -13,11 +13,11 @@ $button-color: #f15f2e;
 
 .datetime-picker {
     font-family: 'Frutiger LT Std Light', 'Open Sans', Arial !important;
-    max-width: inherit;
     border: 1px solid rgba(0,0,0,.2);
     padding: 6px;
     margin-top: 10px;
-    max-width: 270px;
+    min-width: 266px;
+    display: inline-block;
 }
 
 .well {
