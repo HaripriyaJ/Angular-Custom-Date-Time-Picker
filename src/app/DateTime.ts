@@ -86,6 +86,6 @@ export class DateTime {
     }
 
     static assignDefaultDate(time: string) {
-        return moment(`${this.currentDate()} ${time}`, DateTime.dateTimeFormats.dateTimeFormat).format(DateTime.dateTimeFormats.dateTimeFormat);
+        return moment(`${this.currentDate()} ${time}`).format(DateTime.dateTimeFormats.dateTimeFormat);
     }
 }
