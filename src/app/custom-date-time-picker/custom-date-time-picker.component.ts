@@ -1,16 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
-import { DateTime } from '../DateTime';
+import { DateTime, DateTimePickerConfig, DateTimeValueEmitter } from '../DateTime';
 
-export interface DateTimeValueEmitter {
-  openDateTimePickerStatus: boolean,
-  dateTimeValue: string
-}
-
-export interface DateTimePickerConfig {
-  showMeridian: boolean, // choose to use 12-hour or 24-hour clock
-  dateTimeFormat: string, // format date-time according to 12-hour or 24-hour clock
-  dateTime?: string, // pre-fetch value if available
-}
 @Component({
   selector: 'custom-date-time-picker',
   templateUrl: './custom-date-time-picker.component.html',
@@ -30,29 +20,38 @@ export class CustomDateTimePickerComponent implements OnInit {
   yearRange = 20; // display 20 years at a time
   yearColLimit = 4; // display calendar with 4 columns
 
-  @Input() dateTimePickerConfig: string;
+  @Input() dateTimePickerConfig: DateTimePickerConfig;
   @Output() datetimeSelectionComplete = new EventEmitter<DateTimeValueEmitter>();
 
-  dateTime: string =  localStorage.getItem("dateTime") !== null ?  localStorage.getItem("dateTime") : DateTime.currentDateTime();
+  dateTime: string;
   defaultTimeSetting: string = "to"; // setting default time value to choose
 
   ngOnInit() {
-    console.log(this.dateTimePickerConfig)
-    if (this.dateTime) {
-      this.date = new Date(this.dateTime.split(" ")[0]);
-      this.time = new Date(DateTime.assignDefaultTime(this.defaultTimeSetting, this.date)); // Set default time
-      this.dateTime = DateTime.assignDefaultTime(this.defaultTimeSetting, this.date);
-      return;
+    DateTime.dateTimeFormats = {
+      dateTimeFormat: this.dateTimePickerConfig.dateTimeFormat, 
+      dateFormat: this.dateTimePickerConfig.dateTimeFormat.split(" ")[0], 
+      timeFormat: this.dateTimePickerConfig.dateTimeFormat.split(" ").slice(1, ).join(" ")
     }
-    this.date = new Date(DateTime.currentDate());
-    this.time = new Date(DateTime.endOfDay(this.dateTime));
+
+    this.showMeridian = this.dateTimePickerConfig.showMeridian;
+  
+    this. dateTime =  this.dateTimePickerConfig.dateTime ?  
+      this.dateTimePickerConfig.dateTime : 
+      DateTime.assignDefaultTime(this.defaultTimeSetting, new Date(DateTime.currentDate()));
+
+    this.date = new Date(this.dateTime.split(" ")[0]);
+
+    this.time = this.dateTimePickerConfig.dateTime ?  
+      new Date(DateTime.assignDefaultDate(this.dateTime.split(" ").slice(1, ).join(" "))) :
+      new Date(DateTime.assignDefaultTime(this.defaultTimeSetting, this.date));
   }
   
   dateSelectionDone(finalDate, finalTime) {
     this.isDateVisible = false;
     this.dateTime = DateTime.getDateTime(finalDate, finalTime);
-    console.log(this.dateTime)
+
     localStorage.setItem('dateTime', this.dateTime); // update selected value
+    
     this.datetimeSelectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
     this.collapseDateTimePicker = true;
   }

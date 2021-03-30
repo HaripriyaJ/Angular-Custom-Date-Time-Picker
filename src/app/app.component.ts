@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DateTimePickerConfig, DateTimeValueEmitter } from './custom-date-time-picker/custom-date-time-picker.component';
+import { DateTimePickerConfig, DateTimeValueEmitter } from './DateTime';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

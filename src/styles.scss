@@ -46,14 +46,20 @@ button:focus {
 daypicker, monthpicker, yearpicker  {
     .btn-default {
         border-color: transparent !important;
+        .text-info {
+            color: #000 !important;
+        }
         &:focus {
             outline: none !important;
             border: none !important;
         }
-        &:hover {
+        &:hover, &.active {
             background-color: $button-color !important;
             border-color: $button-color !important;
             color: $white !important;
+            .text-info {
+                color: $white !important;
+            }
         }
     }
 

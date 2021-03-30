@@ -1,38 +1,63 @@
 declare var moment;
+export interface DateTimeValueEmitter {
+    openDateTimePickerStatus: boolean,
+    dateTimeValue: string
+}
+export interface DateTimePickerConfig {
+    showMeridian: boolean, // choose to use 12-hour or 24-hour clock
+    dateTimeFormat: string, // format date-time according to 12-hour or 24-hour clock
+    dateTime?: string,
+}
+export interface DateTimeFormats {
+    dateTimeFormat: string,
+    dateFormat: string,
+    timeFormat: string
+}
 export class DateTime {
+
+    static dateTimeFormats: DateTimeFormats = {
+        dateTimeFormat: "",
+        dateFormat: "",
+        timeFormat: ""
+    }
+
+    set dateTimeFormats(format: DateTimeFormats) {
+        DateTime.dateTimeFormats = format;
+    }
+
     static currentTime(): string {
-        return moment().format("HH:mm");
+        return moment().format(DateTime.dateTimeFormats.timeFormat);
     }
 
     static currentDate(): string {
-        return moment().format("YYYY-MMM-DD")
+        return moment().format(DateTime.dateTimeFormats.dateFormat);
     }
 
     static currentDateTime(): string {
-        return moment().format("YYYY-MMM-DD HH:mm")
+        return moment().format(DateTime.dateTimeFormats.dateTimeFormat);
     }
 
     static startOfDay(date: any): string {
-        return moment(date).startOf('day').format("YYYY-MMM-DD HH:mm");
+        return moment(date).startOf('day').format(DateTime.dateTimeFormats.dateTimeFormat);
     }
 
     static endOfDay(date: any): string {
-        return moment(date).endOf('day').format("YYYY-MMM-DD HH:mm");
+        return moment(date).endOf('day').format(DateTime.dateTimeFormats.dateTimeFormat);
     }
 
     static getDateTime(date?: Date, time?: Date): string {
         let extractedDate, extractedTime;
-        date == null ? (extractedDate = moment().format("YYYY-MMM-DD")) : (extractedDate = this.extractDate(date));
-        time == null ? (extractedTime = moment().format("HH:mm")) : (extractedTime = this.extractTime(time));
+        date == null ? (extractedDate = moment().format(DateTime.dateTimeFormats.dateFormat)) : (extractedDate = this.extractDate(date));
+        time == null ? (extractedTime = moment().format(DateTime.dateTimeFormats.timeFormat)) : (extractedTime = this.extractTime(time));
         return `${extractedDate} ${extractedTime}`;
     }
 
     static extractDate(date: any) {
-        return moment(date).format("YYYY-MMM-DD");
+        return moment(date).format(DateTime.dateTimeFormats.dateFormat);
     }
 
     static extractTime(time: any) {
-        return moment(time).format("HH:mm");
+        return moment(time).format(DateTime.dateTimeFormats.timeFormat);
     }
 
     static assignDefaultTime(type: string, date:Date) {
@@ -58,5 +83,9 @@ export class DateTime {
         else {
             throw new Error('Invalid type argument');
         }
+    }
+
+    static assignDefaultDate(time: string) {
+        return moment(`${this.currentDate()} ${time}`, DateTime.dateTimeFormats.dateTimeFormat).format(DateTime.dateTimeFormats.dateTimeFormat);
     }
 }
