@@ -13,16 +13,16 @@ export class PickerDirective implements OnChanges {
 
   // Emit host element details to identify the parent that invokes the picker
   @HostListener('click', ['$event']) onClick(event: Event) {
-    this.triggerPickerStatus();
+    this.triggerPickerStatus(event);
   }
 
   private toggleView(status: boolean): boolean {
     return !status;
   }
 
-  private triggerPickerStatus() {
+  private triggerPickerStatus(event?: Event) {
     this.status = this.toggleView(this.status);
-    this.openDateTimePicker.emit({parentElement: event.target, status: this.status});
+    event ? this.openDateTimePicker.emit({parentElement: event.target, status: this.status}) : this.openDateTimePicker.emit({status: this.status});
   }
   
   ngOnChanges() {

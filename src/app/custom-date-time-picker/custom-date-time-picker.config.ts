@@ -6,7 +6,7 @@ export const DefaultTimeConstants = {
 }
 
 export interface OpenPickerEmitterConfig {
-    parentElement: EventTarget, 
+    parentElement?: EventTarget, 
     status: boolean
 }
 
