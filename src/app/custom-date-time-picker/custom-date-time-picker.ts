@@ -1,4 +1,4 @@
-import { DefaultTimeConstants } from "./custom-date-time-picker/custom-date-time-picker.config";
+import { DefaultTimeConstants } from "./custom-date-time-picker.config";
 
 declare var moment;
 
@@ -8,7 +8,7 @@ interface DateTimeFormats {
     dateTimeFormat: string
 }
 
-export class DateTime {
+export class CustomDateTimePicker {
 
     static dateTimeFormats: DateTimeFormats = {
         dateTimeFormat: "",
@@ -17,42 +17,42 @@ export class DateTime {
     }
 
     set dateTimeFormats(format: DateTimeFormats) {
-        DateTime.dateTimeFormats = format;
+        CustomDateTimePicker.dateTimeFormats = format;
     }
 
     static currentTime(): string {
-        return moment().format(DateTime.dateTimeFormats.timeFormat);
+        return moment().format(CustomDateTimePicker.dateTimeFormats.timeFormat);
     }
 
     static currentDate(): string {
-        return moment().format(DateTime.dateTimeFormats.dateFormat);
+        return moment().format(CustomDateTimePicker.dateTimeFormats.dateFormat);
     }
 
     static currentDateTime(): string {
-        return moment().format(DateTime.dateTimeFormats.dateTimeFormat);
+        return moment().format(CustomDateTimePicker.dateTimeFormats.dateTimeFormat);
     }
 
     static startOfDay(date: any): string {
-        return moment(date).startOf('day').format(DateTime.dateTimeFormats.dateTimeFormat);
+        return moment(date).startOf('day').format(CustomDateTimePicker.dateTimeFormats.dateTimeFormat);
     }
 
     static endOfDay(date: any): string {
-        return moment(date).endOf('day').format(DateTime.dateTimeFormats.dateTimeFormat);
+        return moment(date).endOf('day').format(CustomDateTimePicker.dateTimeFormats.dateTimeFormat);
     }
 
     static getDateTime(date?: Date, time?: Date): string {
         let extractedDate, extractedTime;
-        date == null ? (extractedDate = moment().format(DateTime.dateTimeFormats.dateFormat)) : (extractedDate = this.extractDate(date));
-        time == null ? (extractedTime = moment().format(DateTime.dateTimeFormats.timeFormat)) : (extractedTime = this.extractTime(time));
+        date == null ? (extractedDate = moment().format(CustomDateTimePicker.dateTimeFormats.dateFormat)) : (extractedDate = this.extractDate(date));
+        time == null ? (extractedTime = moment().format(CustomDateTimePicker.dateTimeFormats.timeFormat)) : (extractedTime = this.extractTime(time));
         return `${extractedDate} ${extractedTime}`;
     }
 
     static extractDate(date: any) {
-        return moment(date).format(DateTime.dateTimeFormats.dateFormat);
+        return moment(date).format(CustomDateTimePicker.dateTimeFormats.dateFormat);
     }
 
     static extractTime(time: any) {
-        return moment(time).format(DateTime.dateTimeFormats.timeFormat);
+        return moment(time).format(CustomDateTimePicker.dateTimeFormats.timeFormat);
     }
 
     static assignDefaultTime(type: string, date:Date) {
@@ -81,6 +81,6 @@ export class DateTime {
     }
 
     static assignDefaultDate(time: string) {
-        return moment(`${this.currentDate()} ${time}`).format(DateTime.dateTimeFormats.dateTimeFormat);
+        return moment(`${this.currentDate()} ${time}`).format(CustomDateTimePicker.dateTimeFormats.dateTimeFormat);
     }
 }

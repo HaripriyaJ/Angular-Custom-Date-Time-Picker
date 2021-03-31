@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, } from '@angular/core';
 import { DateTimePickerConfig, DateTimeValueEmitterConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
-import { DateTime } from '../DateTime';
+import { CustomDateTimePicker } from './custom-date-time-picker';
 
 @Component({
   selector: 'custom-date-time-picker',
@@ -34,7 +34,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   @ViewChild('pickerOptions') pickerOptions: ElementRef; 
 
   ngOnInit() {
-    DateTime.dateTimeFormats = {
+    CustomDateTimePicker.dateTimeFormats = {
       dateTimeFormat: this.dateTimePickerConfig.dateTimeFormat, 
       dateFormat: this.dateTimePickerConfig.dateTimeFormat.split(" ")[0], 
       timeFormat: this.dateTimePickerConfig.dateTimeFormat.split(" ").slice(1, ).join(" ")
@@ -46,13 +46,13 @@ export class CustomDateTimePickerComponent implements OnInit {
   
     this. dateTime =  this.dateTimePickerConfig.dateTime ?  
       this.dateTimePickerConfig.dateTime : 
-      DateTime.assignDefaultTime(this.defaultTimeSetting, new Date(DateTime.currentDate()));
+      CustomDateTimePicker.assignDefaultTime(this.defaultTimeSetting, new Date(CustomDateTimePicker.currentDate()));
 
     this.date = new Date(this.dateTime.split(" ")[0]);
 
     this.time = this.dateTimePickerConfig.dateTime ?  
-      new Date(DateTime.assignDefaultDate(this.dateTime.split(" ").slice(1, ).join(" "))) :
-      new Date(DateTime.assignDefaultTime(this.defaultTimeSetting, this.date));
+      new Date(CustomDateTimePicker.assignDefaultDate(this.dateTime.split(" ").slice(1, ).join(" "))) :
+      new Date(CustomDateTimePicker.assignDefaultTime(this.defaultTimeSetting, this.date));
     
     this.parentElement = this.dateTimePickerConfig.invokeElement;
 
@@ -68,7 +68,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   updateDateTime(date, time) {
     this.date = date;
     this.time = time;
-    this.dateTime = DateTime.getDateTime(date, time);
+    this.dateTime = CustomDateTimePicker.getDateTime(date, time);
     this.insideClick();
   }
 
@@ -83,14 +83,14 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
 
   now() {
-    this.time = new Date(DateTime.currentDateTime());
-    this.dateTime = DateTime.getDateTime(this.date, this.time);
+    this.time = new Date(CustomDateTimePicker.currentDateTime());
+    this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
     this.collapsePicker();
   }
 
   today() {
-    this.date = new Date(DateTime.currentDate());
-    this.dateTime = DateTime.getDateTime(this.date, this.time);
+    this.date = new Date(CustomDateTimePicker.currentDate());
+    this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
     this.collapsePicker();
   }
   
