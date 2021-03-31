@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, HostListener, Input, OnChanges, Output } from '@angular/core';
-import { OpenPickerEmitterConfig } from '../DateTime';
+import { OpenPickerEmitterConfig } from './custom-date-time-picker.config';
 
 @Directive({
   selector: '[customDateTimePicker]'

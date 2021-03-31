@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, } from '@angular/core';
-import { DateTime, DateTimePickerConfig, DateTimeValueEmitter } from '../DateTime';
+import { DateTimePickerConfig, DateTimeValueEmitterConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
+import { DateTime } from '../DateTime';
 
 @Component({
   selector: 'custom-date-time-picker',
@@ -22,7 +23,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   yearColLimit = 4; // display calendar with 4 columns
 
   @Input() dateTimePickerConfig: DateTimePickerConfig;
-  @Output() selectionComplete = new EventEmitter<DateTimeValueEmitter>();
+  @Output() selectionComplete = new EventEmitter<DateTimeValueEmitterConfig>();
   @Output() toggleView = new EventEmitter<boolean>();
 
   dateTime: string;
@@ -39,7 +40,7 @@ export class CustomDateTimePickerComponent implements OnInit {
       timeFormat: this.dateTimePickerConfig.dateTimeFormat.split(" ").slice(1, ).join(" ")
     }
 
-    this.defaultTimeSetting = this.dateTimePickerConfig.defaultTimeCode || "from"; 
+    this.defaultTimeSetting = this.dateTimePickerConfig.defaultTimeCode || DefaultTimeConstants.START_OF_DAY; 
 
     this.showMeridian = this.dateTimePickerConfig.showMeridian;
   

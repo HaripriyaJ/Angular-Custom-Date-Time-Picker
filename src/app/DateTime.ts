@@ -1,22 +1,6 @@
+import { DefaultTimeConstants } from "./custom-date-time-picker/custom-date-time-picker.config";
+
 declare var moment;
-
-export interface OpenPickerEmitterConfig {
-    parentElement: EventTarget, 
-    status: boolean
-}
-
-export interface DateTimeValueEmitter {
-    openDateTimePickerStatus: boolean,
-    dateTimeValue: string
-}
-
-export interface DateTimePickerConfig {
-    showMeridian: boolean, // choose to use 12-hour or 24-hour clock
-    dateTimeFormat: string, // format date-time according to 12-hour or 24-hour clock
-    dateTime?: string,
-    defaultTimeCode: string,
-    invokeElement: EventTarget
-}
 
 interface DateTimeFormats {
     dateFormat: string,
@@ -79,16 +63,16 @@ export class DateTime {
             iii. default - start of day is considered i.e., 12:00 AM or 00:00 is set
             iii. current - current time is set
         */
-        if(type === 'to') {
+        if(type === DefaultTimeConstants.END_OF_DAY) {
             return this.getDateTime(date, new Date(this.endOfDay(date)));
         }
-        else if(type === 'from') {
+        else if(type === DefaultTimeConstants.START_OF_DAY) {
             return this.getDateTime(date, new Date(this.startOfDay(date)));
         }
-        else if (type === 'default') {
+        else if (type === DefaultTimeConstants.DEFAULT) {
             return this.getDateTime(date, new Date(this.startOfDay(date)));
         }
-        else if (type === 'current') {
+        else if (type === DefaultTimeConstants.CURRENT_DATETIME) {
             return this.getDateTime(date, new Date(this.currentDateTime()));
         }
         else {

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { DateTimePickerConfig, DateTimeValueEmitter, OpenPickerEmitterConfig } from './DateTime';
+import { Component } from '@angular/core';
+import { DateTimePickerConfig, DateTimeValueEmitterConfig, OpenPickerEmitterConfig } from './custom-date-time-picker/custom-date-time-picker.config';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,7 @@ export class AppComponent  {
     return e.status
   }
 
-  afterPickerValueSelection(e: DateTimeValueEmitter) {
+  afterPickerValueSelection(e: DateTimeValueEmitterConfig) {
     this.updateConfig(); // can be avoided when integrated with API call
     return e.dateTimeValue;
   } 
