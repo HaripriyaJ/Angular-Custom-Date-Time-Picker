@@ -1,7 +1,7 @@
 export const DefaultTimeConstants = {
     START_OF_DAY: 'from',
     END_OF_DAY: 'to',
-    CURRENT_DATETIME: 'current',
+    CURRENT_TIME: 'current',
     DEFAULT: 'default'
 }
 

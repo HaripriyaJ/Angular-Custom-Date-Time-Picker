@@ -57,12 +57,13 @@ export class CustomDateTimePicker {
 
     static assignDefaultTime(type: string, date:Date) {
         /*
-            Argument 'type' can take the following arguments:
-            i. to - end of day is considered i.e., 11:59 PM or 23:59 is set
-            ii. from - start of day is considered i.e., 12:00 AM or 00:00 is set
-            iii. default - start of day is considered i.e., 12:00 AM or 00:00 is set
-            iii. current - current time is set
+            Argument 'type' can take the following values:
+            i. END_OF_DAY - 11:59 PM or 23:59 is set
+            ii. START_OF_DAY - 12:00 AM or 00:00 is set
+            iii. DEFAULT - 12:00 AM or 00:00 is set
+            iii. CURRENT_TIME - current time is set
         */
+
         if(type === DefaultTimeConstants.END_OF_DAY) {
             return this.getDateTime(date, new Date(this.endOfDay(date)));
         }
@@ -72,11 +73,11 @@ export class CustomDateTimePicker {
         else if (type === DefaultTimeConstants.DEFAULT) {
             return this.getDateTime(date, new Date(this.startOfDay(date)));
         }
-        else if (type === DefaultTimeConstants.CURRENT_DATETIME) {
+        else if (type === DefaultTimeConstants.CURRENT_TIME) {
             return this.getDateTime(date, new Date(this.currentDateTime()));
         }
         else {
-            throw new Error('Invalid type argument');
+            throw new Error('Invalid type argument. Valid arguments are START_OF_DAY, END_OF_DAY, DEFAULT, and CURRENT_TIME');
         }
     }
 
