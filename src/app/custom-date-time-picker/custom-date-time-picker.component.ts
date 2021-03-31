@@ -39,6 +39,8 @@ export class CustomDateTimePickerComponent implements OnInit {
       timeFormat: this.dateTimePickerConfig.dateTimeFormat.split(" ").slice(1, ).join(" ")
     }
 
+    this.defaultTimeSetting = this.dateTimePickerConfig.defaultTimeCode || "from"; 
+
     this.showMeridian = this.dateTimePickerConfig.showMeridian;
   
     this. dateTime =  this.dateTimePickerConfig.dateTime ?  
@@ -51,7 +53,6 @@ export class CustomDateTimePickerComponent implements OnInit {
       new Date(DateTime.assignDefaultDate(this.dateTime.split(" ").slice(1, ).join(" "))) :
       new Date(DateTime.assignDefaultTime(this.defaultTimeSetting, this.date));
     
-    this.defaultTimeSetting = this.dateTimePickerConfig.defaultTimeCode || "from"; 
     this.parentElement = this.dateTimePickerConfig.invokeElement;
 
     this.toggleView.emit(true);
