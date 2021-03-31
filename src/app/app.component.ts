@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DateTimePickerConfig, DateTimeValueEmitterConfig, OpenPickerEmitterConfig } from './custom-date-time-picker/custom-date-time-picker.config';
+import { DateTimePickerConfig, DateTimeValueEmitterConfig, DefaultTimeConstants, OpenPickerEmitterConfig } from './custom-date-time-picker/custom-date-time-picker.config';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +37,7 @@ export class AppComponent  {
       showMeridian: true,
       dateTimeFormat: "DD-MMM-YYYY hh:mm a",
       dateTime: localStorage.getItem("dateTime"), // API call to get value if already selected
-      defaultTimeCode: "to",
+      defaultTimeCode: DefaultTimeConstants.END_OF_DAY,
       invokeElement: invokeElement
     }
   }
