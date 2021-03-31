@@ -1,11 +1,12 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { DateTimePickerConfig, DateTimeValueEmitterConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
 import { CustomDateTimePicker } from './custom-date-time-picker';
 
 @Component({
   selector: 'custom-date-time-picker',
   templateUrl: './custom-date-time-picker.component.html',
-  styleUrls: ['./custom-date-time-picker.component.scss']
+  styleUrls: ['./custom-date-time-picker.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CustomDateTimePickerComponent implements OnInit {
 
