@@ -1,31 +1,42 @@
-import { Directive, EventEmitter, HostListener, Input, OnChanges, Output } from '@angular/core';
-import { OpenPickerEmitterConfig } from './custom-date-time-picker.config';
+import { ComponentFactoryResolver, Directive, ElementRef, HostListener, ViewContainerRef } from '@angular/core';
+import { CustomDateTimePickerComponent } from './custom-date-time-picker.component';
+import { DefaultTimeConstants } from './custom-date-time-picker.config';
+
+interface PickerInstance {
+  invokeElement: ElementRef,
+  instance: any
+}
 
 @Directive({
   selector: '[customDateTimePicker]'
 })
-export class PickerDirective implements OnChanges {
+export class PickerDirective {
 
-  status: boolean = false;
+  private pickerInstances:PickerInstance[] = [];
 
-  @Input() updateToggleStatus: boolean;
-  @Output() openDateTimePicker = new EventEmitter<OpenPickerEmitterConfig>();
+  constructor(private viewContainer: ViewContainerRef, 
+    private parentElement: ElementRef,
+    private componentFactoryResolver: ComponentFactoryResolver)
+  {}
 
-  // Emit host element details to identify the parent that invokes the picker
-  @HostListener('click', ['$event']) onClick(event: Event) {
-    this.triggerPickerStatus(event);
-  }
+  @HostListener('click') onClick() {
+    // Check if an instance of picker has been created for invoking parent
+    if(!this.pickerInstances.find(eachInstance => eachInstance.invokeElement === this.parentElement)) {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomDateTimePickerComponent);
+      const componentRef = this.viewContainer.createComponent<CustomDateTimePickerComponent>(componentFactory);
 
-  private toggleView(status: boolean): boolean {
-    return !status;
-  }
-
-  private triggerPickerStatus(event?: Event) {
-    this.status = this.toggleView(this.status);
-    event ? this.openDateTimePicker.emit({parentElement: event.target, status: this.status}) : this.openDateTimePicker.emit({status: this.status});
-  }
-  
-  ngOnChanges() {
-    if (this.updateToggleStatus === false) this.triggerPickerStatus();
+      componentRef.instance.dateTimePickerConfig = {
+        showMeridian: true,
+        dateTimeFormat: "DD-MMM-YYYY hh:mm a",
+        dateTime: localStorage.getItem("dateTime"), // API call to get value if already selected
+        defaultTimeCode: DefaultTimeConstants.END_OF_DAY,
+        invokeElement: this.parentElement.nativeElement
+      }
+      this.pickerInstances.push({invokeElement: this.parentElement, instance: componentRef});
+    }
+    else {
+      this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== this.parentElement); // remove instance
+      this.viewContainer.clear();
+    } 
   }
 }

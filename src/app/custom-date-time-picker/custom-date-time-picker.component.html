@@ -1,4 +1,4 @@
-<div class="datetime-picker" [hidden]="collapseDateTimePicker" id="datetime-picker">
+<div class="datetime-picker" id="datetime-picker">
     <div (click)="insideClick()">
         <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
             (selectionDone)="dateSelectionDone($event, time)" [yearColLimit]="yearColLimit">

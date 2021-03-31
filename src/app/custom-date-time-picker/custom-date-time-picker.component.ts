@@ -15,7 +15,6 @@ export class CustomDateTimePickerComponent implements OnInit {
 
   isDateVisible: boolean = true; // open date picker by default
   isTimeVisible:boolean = false; // hide time picker by default
-  collapseDateTimePicker: boolean = false; // display or hide picker
   showMeridian: boolean = false; 
   insideClickStatus = false;
 
@@ -25,7 +24,6 @@ export class CustomDateTimePickerComponent implements OnInit {
 
   @Input() dateTimePickerConfig: DateTimePickerConfig;
   @Output() selectionComplete = new EventEmitter<DateTimeValueEmitterConfig>();
-  @Output() toggleView = new EventEmitter<boolean>();
 
   dateTime: string;
   defaultTimeSetting: string; // setting default time value to choose
@@ -57,7 +55,6 @@ export class CustomDateTimePickerComponent implements OnInit {
     
     this.parentElement = this.dateTimePickerConfig.invokeElement;
 
-    this.toggleView.emit(true);
   }
   
   dateSelectionDone(finalDate, finalTime) {
@@ -96,7 +93,6 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
   
   clear() {
-    this.collapseDateTimePicker = true;
     this.selectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: null});
 
     /* API call */
@@ -104,6 +100,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
+    // On outside click try to remove component from DOM
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
       this.collapsePicker();
@@ -118,9 +115,6 @@ export class CustomDateTimePickerComponent implements OnInit {
   collapsePicker() {
     /* API call */
     localStorage.setItem('dateTime', this.dateTime);
-
     this.selectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
-    this.collapseDateTimePicker = true;
-    this.toggleView.emit(false);
   }
 }
