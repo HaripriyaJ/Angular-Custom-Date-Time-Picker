@@ -18,24 +18,26 @@ export class AppComponent  {
   updateToggleStatus: boolean;
 
   constructor() {
+    this.dateTime = localStorage.getItem("dateTime"); // API call to get value if already selected
     this.updateConfig();
   }
   
   openPicker(e: OpenPickerEmitterConfig) {
-    this.updateConfig(e.parentElement);
+    this.updateConfig(e.parentElement); // can be avoided when integrated with API call
     return e.status
   }
 
   afterPickerValueSelection(e: DateTimeValueEmitter) {
-    this.updateConfig();
+    this.updateConfig(); // can be avoided when integrated with API call
     return e.dateTimeValue;
   } 
 
   private updateConfig(invokeElement?) {
     this.dateTimePickerConfig = {
       showMeridian: true,
-      dateTimeFormat: "YYYY-MMM-DD hh:mm a",
-      dateTime: localStorage.getItem("dateTime"),
+      dateTimeFormat: "DD-MMM-YYYY hh:mm a",
+      dateTime: localStorage.getItem("dateTime"), // API call to get value if already selected
+      defaultTimeCode: "to",
       invokeElement: invokeElement
     }
   }

@@ -1,23 +1,29 @@
 declare var moment;
+
 export interface OpenPickerEmitterConfig {
     parentElement: EventTarget, 
     status: boolean
 }
+
 export interface DateTimeValueEmitter {
     openDateTimePickerStatus: boolean,
     dateTimeValue: string
 }
+
 export interface DateTimePickerConfig {
     showMeridian: boolean, // choose to use 12-hour or 24-hour clock
     dateTimeFormat: string, // format date-time according to 12-hour or 24-hour clock
     dateTime?: string,
+    defaultTimeCode: string,
     invokeElement: EventTarget
 }
-export interface DateTimeFormats {
-    dateTimeFormat: string,
+
+interface DateTimeFormats {
     dateFormat: string,
-    timeFormat: string
+    timeFormat: string,
+    dateTimeFormat: string
 }
+
 export class DateTime {
 
     static dateTimeFormats: DateTimeFormats = {

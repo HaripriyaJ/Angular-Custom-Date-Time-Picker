@@ -1,30 +1,35 @@
-<div class="datetime-picker" [hidden]="collapseDateTimePicker" id="datetime-picker" (click)="pickerClick()">
-    <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
-        (selectionDone)="dateSelectionDone($event, time)" [yearColLimit]="yearColLimit">
-    </datepicker>
+<div class="datetime-picker" [hidden]="collapseDateTimePicker" id="datetime-picker">
+    <div (click)="insideClick()">
+        <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
+            (selectionDone)="dateSelectionDone($event, time)" [yearColLimit]="yearColLimit">
+        </datepicker>
 
-    <timepicker [hidden]="!isTimeVisible" [(ngModel)]="time" [showMeridian]="showMeridian" [minuteStep]="minuteStep">
-    </timepicker>
-
-    <div class="datetime-options">
-        <div class="flexbox space-between">
-            <div class="flexbox space-evenly">
-                <!-- Display calendar-->
-                <span [hidden]="isDateVisible" (click)="showDate()" tooltip="Go to calendar" placement="bottom">
-                    <i class="fa fa-calendar fa-lg"></i></span>
-                <!-- Display clock -->
-                <span [hidden]="!isDateVisible" (click)="showTime()" tooltip="Go to clock" placement="bottom">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i></span>
-            </div>
+        <timepicker [hidden]="!isTimeVisible" [(ngModel)]="time" [showMeridian]="showMeridian"
+            [minuteStep]="minuteStep">
+        </timepicker>
+    </div>
+    <div #pickerOptions>
+        <div class="datetime-options">
             <div class="flexbox space-between">
-                <!-- Display with calendar-->
-                <span (click)="today()" [hidden]="!isDateVisible" tooltip="Current date" placement="bottom">Today</span>
-                <!-- Display with clock -->
-                <span (click)="now()" [hidden]="isDateVisible" tooltip="Current time" placement="bottom">Now</span>
-            </div>
-            <div class="flexbox flex-end">
-                <span (click)="clear()" class="clear" [hidden]="!isDateVisible">x Clear</span>
-                <span (click)="dateSelectionDone(date, time)" class="clear" [hidden]="isDateVisible">Done</span>
+                <div class="flexbox space-evenly">
+                    <!-- Display calendar-->
+                    <span [hidden]="isDateVisible" (click)="showDate()" tooltip="Go to calendar" placement="bottom">
+                        <i class="fa fa-calendar fa-lg"></i></span>
+                    <!-- Display clock -->
+                    <span [hidden]="!isDateVisible" (click)="showTime()" tooltip="Go to clock" placement="bottom">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                </div>
+                <div class="flexbox space-between">
+                    <!-- Display with calendar-->
+                    <span (click)="today()" [hidden]="!isDateVisible" tooltip="Current date"
+                        placement="bottom">Today</span>
+                    <!-- Display with clock -->
+                    <span (click)="now()" [hidden]="isDateVisible" tooltip="Current time" placement="bottom">Now</span>
+                </div>
+                <div class="flexbox flex-end">
+                    <span (click)="clear()" class="clear" [hidden]="!isDateVisible">x Clear</span>
+                    <span (click)="dateSelectionDone(date, time)" class="clear" [hidden]="isDateVisible">Done</span>
+                </div>
             </div>
         </div>
     </div>
