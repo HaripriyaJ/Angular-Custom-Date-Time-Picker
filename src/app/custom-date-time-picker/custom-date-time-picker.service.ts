@@ -3,6 +3,7 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 interface PickerInstance {
   viewContainer: ViewContainerRef,
   invokeElement: EventTarget,
+  invokeElementType: string,
   instance: any
 }
 
@@ -15,10 +16,11 @@ export class CustomDateTimePickerService {
 
   constructor() { }
 
-  setInstance(viewContainer: ViewContainerRef, invokeElement: EventTarget, instance: any) {
+  setInstance(viewContainer: ViewContainerRef, invokeElement: EventTarget, invokeElementType: string, instance: any) {
     this.pickerInstances.push({
       viewContainer: viewContainer, 
       invokeElement: invokeElement, 
+      invokeElementType: invokeElementType,
       instance: instance
     });
   }
@@ -31,5 +33,9 @@ export class CustomDateTimePickerService {
 
   checkInstanceAvailability(parentElement:EventTarget) {
     return this.pickerInstances.filter(eachInstance => eachInstance.invokeElement === parentElement)[0] ? true : false;
+  }
+
+  getInstanceType(parentElement:EventTarget) {
+    return this.pickerInstances.filter(eachInstance => eachInstance.invokeElement === parentElement)[0].invokeElementType;
   }
 }

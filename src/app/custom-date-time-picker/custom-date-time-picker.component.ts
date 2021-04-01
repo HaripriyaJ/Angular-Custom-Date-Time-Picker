@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, ViewEncapsulation, } from '@angular/core';
-import { DateTimePickerConfig, DateTimeValueEmitterConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewEncapsulation, } from '@angular/core';
+import { DateTimePickerConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
 import { CustomDateTimePicker } from './custom-date-time-picker';
 import { CustomDateTimePickerService } from './custom-date-time-picker.service';
 
@@ -24,12 +24,12 @@ export class CustomDateTimePickerComponent implements OnInit {
   yearColLimit = 4; // display calendar with 4 columns
 
   @Input() dateTimePickerConfig: DateTimePickerConfig;
-  @Output() selectionComplete = new EventEmitter<DateTimeValueEmitterConfig>();
 
   dateTime: string;
   defaultTimeSetting: string; // setting default time value to choose
 
   parentElement: EventTarget;
+  invokeElementType: string;
 
   @ViewChild('pickerOptions') pickerOptions: ElementRef; 
   
@@ -50,6 +50,9 @@ export class CustomDateTimePickerComponent implements OnInit {
       this.dateTimePickerConfig.dateTime : 
       CustomDateTimePicker.assignDefaultTime(this.defaultTimeSetting, new Date(CustomDateTimePicker.currentDate()));
 
+    // just for getting value sake
+    localStorage.setItem('dateTime', this.dateTime);
+
     this.date = new Date(this.dateTime.split(" ")[0]);
 
     this.time = this.dateTimePickerConfig.dateTime ?  
@@ -57,6 +60,7 @@ export class CustomDateTimePickerComponent implements OnInit {
       new Date(CustomDateTimePicker.assignDefaultTime(this.defaultTimeSetting, this.date));
     
     this.parentElement = this.dateTimePickerConfig.invokeElement;
+    this.invokeElementType = this.pickerService.getInstanceType(this.parentElement);
   }
   
   dateSelectionDone(finalDate, finalTime) {
@@ -95,13 +99,12 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
   
   clear() {
-    this.selectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: null});
-
     /* API call */
-    localStorage.removeItem('dateTime');
+    
   }
 
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
+    console.log(this.invokeElementType)
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
       this.collapsePicker();
@@ -116,8 +119,7 @@ export class CustomDateTimePickerComponent implements OnInit {
 
   collapsePicker() {
     /* API call */
-    localStorage.setItem('dateTime', this.dateTime);
-    this.selectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
+    
     this.pickerService.removeInstance(this.parentElement);
   }
 }

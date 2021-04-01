@@ -22,7 +22,7 @@ export class PickerDirective {
     if(!this.pickerService.pickerInstances.find(eachInstance => eachInstance.invokeElement === event.target)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomDateTimePickerComponent);
       const componentRef = this.viewContainer.createComponent<CustomDateTimePickerComponent>(componentFactory);
-      this.pickerService.setInstance(this.viewContainer, event.target, componentRef);
+      this.pickerService.setInstance(this.viewContainer, event.target, String(this.parentElement.nativeElement.nodeName).toLowerCase(), componentRef);
       this.passDateTimeConfig(componentRef, event.target);
     }
     else {

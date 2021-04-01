@@ -7,3 +7,7 @@
     <input type="text" name="picker" id="2" class="form-control" readonly placeholder="{{dateTime || 'Datetime picker'}}"
         [customDateTimePicker]="pickerConfig">
 </div>
+
+<div style="margin: 10px;">
+    <div [customDateTimePicker]="pickerConfig">This is a div parent</div>
+</div>
