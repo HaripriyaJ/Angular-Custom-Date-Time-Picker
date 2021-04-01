@@ -105,7 +105,7 @@ export class CustomDateTimePickerComponent implements OnInit {
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
       this.collapsePicker();
-      this.pickerService.removeInstance(this.parentElement);
+      this.pickerService.checkInstanceAvailability(this.parentElement) && this.pickerService.removeInstance(this.parentElement);
     }
     else this.insideClickStatus = false;
   }

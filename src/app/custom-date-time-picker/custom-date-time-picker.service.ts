@@ -28,4 +28,8 @@ export class CustomDateTimePickerService {
     viewContainer.clear();
     this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== parentElement);
   }
+
+  checkInstanceAvailability(parentElement:EventTarget) {
+    return this.pickerInstances.filter(eachInstance => eachInstance.invokeElement === parentElement)[0] ? true : false;
+  }
 }
