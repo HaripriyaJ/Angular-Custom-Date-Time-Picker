@@ -118,5 +118,6 @@ export class CustomDateTimePickerComponent implements OnInit {
     /* API call */
     localStorage.setItem('dateTime', this.dateTime);
     this.selectionComplete.emit({openDateTimePickerStatus: false, dateTimeValue: this.dateTime});
+    this.pickerService.removeInstance(this.parentElement);
   }
 }

@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
 
 interface PickerInstance {
   viewContainer: ViewContainerRef,
