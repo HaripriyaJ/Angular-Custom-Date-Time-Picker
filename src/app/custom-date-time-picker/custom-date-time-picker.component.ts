@@ -99,10 +99,8 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
   
   clear() {
-    /* API call */
-    this.invokeElementType === 'input' ? 
-      this.pickerService.assignSelectedValue(this.parentElement, null, this.invokeElementType): // Replace placeholder value
-      this.pickerService.assignSelectedValue(this.parentElement, this.dateTime, this.invokeElementType); // Remove embedded component
+    // Make API call to update value if necessary
+    this.pickerService.assignSelectedValue(this.parentElement, null, this.invokeElementType);
   }
 
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
@@ -118,9 +116,8 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
 
   collapsePicker() {
-    /* API call */
-
+    // Make API call to update value if necessary
     this.pickerService.assignSelectedValue(this.parentElement, this.dateTime, this.invokeElementType);
-    this.pickerService.checkInstanceAvailability(this.parentElement) && this.pickerService.removeInstance(this.parentElement);
+    this.pickerService.checkInstanceAvailability(this.parentElement) && this.pickerService.removeInstance(this.parentElement, this.invokeElementType);
   }
 }

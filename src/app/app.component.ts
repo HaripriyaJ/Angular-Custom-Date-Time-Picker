@@ -14,7 +14,7 @@ export class AppComponent  {
   pickerConfig = {
     showMeridian: true,
     dateTimeFormat: "DD-MMM-YYYY hh:mm a",
-    dateTime: localStorage.getItem("dateTime"), // API call to get value if already selected
+    dateTime: "02-Apr-2021 11:59 pm", // API call to get value if already selected
     defaultTimeCode: DefaultTimeConstants.END_OF_DAY
   }
 };

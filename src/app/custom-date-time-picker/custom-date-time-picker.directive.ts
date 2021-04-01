@@ -11,22 +11,31 @@ export class PickerDirective {
   // Input to directive
   @Input() customDateTimePicker: DateTimePickerConfig;
 
-  constructor(private viewContainer: ViewContainerRef, 
+  constructor(
+    private viewContainer: ViewContainerRef, 
     private parentElement: ElementRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private pickerService: CustomDateTimePickerService)
-  {}
+    private pickerService: CustomDateTimePickerService
+  ){}
 
   @HostListener('click', ['$event']) onClick(event: Event) {
+    const type = String(this.parentElement.nativeElement.nodeName).toLowerCase();
     // Check if an instance of picker has been created for invoking parent
     if(!this.pickerService.pickerInstances.find(eachInstance => eachInstance.invokeElement === event.target)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomDateTimePickerComponent);
       const componentRef = this.viewContainer.createComponent<CustomDateTimePickerComponent>(componentFactory);
-      this.pickerService.setInstance(this.viewContainer, event.target, String(this.parentElement.nativeElement.nodeName).toLowerCase(), componentRef);
+      this.pickerService.setInstance(this.viewContainer, event.target, type, componentRef, null);
       this.passDateTimeConfig(componentRef, event.target);
     }
     else {
-      this.pickerService.removeInstance(event.target);
+      if( type === 'input') {
+        this.pickerService.removeInstance(event.target, type);
+      } 
+      else {
+        const instance = this.pickerService.getInstance(this.parentElement.nativeElement);
+        instance.viewContainer.clear();
+        this.pickerService.removeInstance(event.target, type);
+      }
     } 
   }
 
