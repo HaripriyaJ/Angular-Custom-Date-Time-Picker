@@ -1,12 +1,15 @@
-import { ComponentFactoryResolver, Directive, ElementRef, HostListener, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, Directive, ElementRef, HostListener, Input, ViewContainerRef } from '@angular/core';
 import { CustomDateTimePickerComponent } from './custom-date-time-picker.component';
-import { DefaultTimeConstants } from './custom-date-time-picker.config';
-import { CustomDateTimePickerService, PickerInstance } from './custom-date-time-picker.service';
+import { DateTimePickerConfig } from './custom-date-time-picker.config';
+import { CustomDateTimePickerService } from './custom-date-time-picker.service';
 
 @Directive({
   selector: '[customDateTimePicker]'
 })
 export class PickerDirective {
+
+  // Input to directive
+  @Input() customDateTimePicker: DateTimePickerConfig;
 
   constructor(private viewContainer: ViewContainerRef, 
     private parentElement: ElementRef,
@@ -19,19 +22,16 @@ export class PickerDirective {
     if(!this.pickerService.pickerInstances.find(eachInstance => eachInstance.invokeElement === this.parentElement)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomDateTimePickerComponent);
       const componentRef = this.viewContainer.createComponent<CustomDateTimePickerComponent>(componentFactory);
-
-      componentRef.instance.dateTimePickerConfig = {
-        showMeridian: true,
-        dateTimeFormat: "DD-MMM-YYYY hh:mm a",
-        dateTime: localStorage.getItem("dateTime"), // API call to get value if already selected
-        defaultTimeCode: DefaultTimeConstants.END_OF_DAY,
-        invokeElement: this.parentElement.nativeElement
-      }
-      this.pickerService.pickerInstances.push({invokeElement: this.parentElement, instance: componentRef});
+      this.pickerService.setInstance(this.viewContainer, this.parentElement, componentRef);
+      this.passDateTimeConfig(componentRef);
     }
     else {
-      this.pickerService.pickerInstances = this.pickerService.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== this.parentElement); // remove instance
-      this.viewContainer.clear();
+      this.pickerService.removeInstance(this.parentElement);
     } 
+  }
+
+  passDateTimeConfig(componentRef) {
+    this.customDateTimePicker.invokeElement = this.parentElement.nativeElement;
+    componentRef.instance.dateTimePickerConfig = this.customDateTimePicker;
   }
 }

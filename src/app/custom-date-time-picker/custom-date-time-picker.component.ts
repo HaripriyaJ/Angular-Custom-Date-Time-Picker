@@ -100,10 +100,10 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
-    // On outside click try to remove component from DOM
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
       this.collapsePicker();
+      console.log("Outside click", this.parentElement) // do something to remove instance from DOM
     }
     else this.insideClickStatus = false;
   }
