@@ -1,0 +1,36 @@
+<div class="datetime-picker" id="datetime-picker" [ngClass]="{'datetime-picker-replica': invokeElementType === 'input'}">
+    <div (click)="insideClick()" [ngClass]="{'align-calendar': invokeElementType === 'input'}">
+        <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
+            (selectionDone)="dateSelectionDone($event, time)" [yearColLimit]="yearColLimit">
+        </datepicker>
+
+        <timepicker [hidden]="!isTimeVisible" [(ngModel)]="time" [showMeridian]="showMeridian"
+            [minuteStep]="minuteStep">
+        </timepicker>
+    </div>
+    <div #pickerOptions>
+        <div class="datetime-options">
+            <div class="flexbox space-between">
+                <div class="flexbox space-evenly">
+                    <!-- Display calendar-->
+                    <span [hidden]="isDateVisible" (click)="showDate()" tooltip="Go to Calendar" placement="bottom">
+                        <i class="fa fa-calendar fa-lg"></i></span>
+                    <!-- Display clock -->
+                    <span [hidden]="!isDateVisible" (click)="showTime()" tooltip="Go to Time Picker" placement="bottom">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                </div>
+                <div class="flexbox space-between">
+                    <!-- Display with calendar-->
+                    <span (click)="today()" [hidden]="!isDateVisible" tooltip="Current Date"
+                        placement="bottom">Today</span>
+                    <!-- Display with clock -->
+                    <span (click)="now()" [hidden]="isDateVisible" tooltip="Current Time" placement="bottom">Now</span>
+                </div>
+                <div class="flexbox flex-end">
+                    <span (click)="clear()" class="clear" [hidden]="!isDateVisible">x Clear</span>
+                    <span (click)="dateSelectionDone(date, time)" class="clear" [hidden]="isDateVisible">Done</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

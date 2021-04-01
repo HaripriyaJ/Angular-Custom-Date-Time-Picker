@@ -1,2 +1,3 @@
-# Angular-Custom-Date-Time-Picker
-A Custom date time picker for angular using ngx-bootstrap
+# Custom-Angular-datetime-picker
+
+Custom datetime picker developed from Datetimepicker module and Timepicker module of ngx-bootsrap
