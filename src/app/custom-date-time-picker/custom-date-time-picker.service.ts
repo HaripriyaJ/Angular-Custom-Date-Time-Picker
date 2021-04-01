@@ -1,8 +1,8 @@
 import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
 
-export interface PickerInstance {
+interface PickerInstance {
   viewContainer: ViewContainerRef,
-  invokeElement: ElementRef,
+  invokeElement: EventTarget,
   instance: any
 }
 
@@ -15,7 +15,7 @@ export class CustomDateTimePickerService {
 
   constructor() { }
 
-  setInstance(viewContainer: ViewContainerRef, invokeElement: ElementRef, instance: any) {
+  setInstance(viewContainer: ViewContainerRef, invokeElement: EventTarget, instance: any) {
     this.pickerInstances.push({
       viewContainer: viewContainer, 
       invokeElement: invokeElement, 
@@ -23,7 +23,7 @@ export class CustomDateTimePickerService {
     });
   }
 
-  removeInstance(parentElement:ElementRef) {
+  removeInstance(parentElement:EventTarget) {
     const viewContainer = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement === parentElement)[0].viewContainer;
     viewContainer.clear();
     this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== parentElement);

@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { DateTimePickerConfig, DateTimeValueEmitterConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
 import { CustomDateTimePicker } from './custom-date-time-picker';
+import { CustomDateTimePickerService } from './custom-date-time-picker.service';
 
 @Component({
   selector: 'custom-date-time-picker',
@@ -31,6 +32,8 @@ export class CustomDateTimePickerComponent implements OnInit {
   parentElement: EventTarget;
 
   @ViewChild('pickerOptions') pickerOptions: ElementRef; 
+  
+  constructor(private pickerService: CustomDateTimePickerService) {}
 
   ngOnInit() {
     CustomDateTimePicker.dateTimeFormats = {
@@ -54,7 +57,6 @@ export class CustomDateTimePickerComponent implements OnInit {
       new Date(CustomDateTimePicker.assignDefaultTime(this.defaultTimeSetting, this.date));
     
     this.parentElement = this.dateTimePickerConfig.invokeElement;
-
   }
   
   dateSelectionDone(finalDate, finalTime) {
@@ -103,7 +105,7 @@ export class CustomDateTimePickerComponent implements OnInit {
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
       this.collapsePicker();
-      console.log("Outside click", this.parentElement) // do something to remove instance from DOM
+      this.pickerService.removeInstance(this.parentElement);
     }
     else this.insideClickStatus = false;
   }

@@ -1,13 +1,10 @@
+import { ElementRef } from "@angular/core";
+
 export const DefaultTimeConstants = {
     START_OF_DAY: 'from',
     END_OF_DAY: 'to',
     CURRENT_TIME: 'current',
     DEFAULT: 'default'
-}
-
-export interface OpenPickerEmitterConfig {
-    parentElement?: EventTarget, 
-    status: boolean
 }
 
 export interface DateTimeValueEmitterConfig {

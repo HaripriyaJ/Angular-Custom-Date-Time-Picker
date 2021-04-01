@@ -17,21 +17,21 @@ export class PickerDirective {
     private pickerService: CustomDateTimePickerService)
   {}
 
-  @HostListener('click') onClick() {
+  @HostListener('click', ['$event']) onClick(event: Event) {
     // Check if an instance of picker has been created for invoking parent
-    if(!this.pickerService.pickerInstances.find(eachInstance => eachInstance.invokeElement === this.parentElement)) {
+    if(!this.pickerService.pickerInstances.find(eachInstance => eachInstance.invokeElement === event.target)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomDateTimePickerComponent);
       const componentRef = this.viewContainer.createComponent<CustomDateTimePickerComponent>(componentFactory);
-      this.pickerService.setInstance(this.viewContainer, this.parentElement, componentRef);
-      this.passDateTimeConfig(componentRef);
+      this.pickerService.setInstance(this.viewContainer, event.target, componentRef);
+      this.passDateTimeConfig(componentRef, event.target);
     }
     else {
-      this.pickerService.removeInstance(this.parentElement);
+      this.pickerService.removeInstance(event.target);
     } 
   }
 
-  passDateTimeConfig(componentRef) {
-    this.customDateTimePicker.invokeElement = this.parentElement.nativeElement;
+  passDateTimeConfig(componentRef, parentElement) {
+    this.customDateTimePicker.invokeElement = parentElement;
     componentRef.instance.dateTimePickerConfig = this.customDateTimePicker;
   }
 }
