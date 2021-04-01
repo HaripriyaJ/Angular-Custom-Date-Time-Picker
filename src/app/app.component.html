@@ -1,10 +1,10 @@
 <div style="margin: 10px;">
-    <input type="text" name="picker" id="1" class="form-control" readonly placeholder="{{dateTime || 'Datetime picker'}}"
+    <input type="text" name="picker" id="1" class="form-control" readonly [placeholder]="placeholderText"
         [customDateTimePicker]="pickerConfig">
 </div>
 
 <div style="margin: 10px;">
-    <input type="text" name="picker" id="2" class="form-control" readonly placeholder="{{dateTime || 'Datetime picker'}}"
+    <input type="text" name="picker" id="2" class="form-control" readonly [placeholder]="placeholderText"
         [customDateTimePicker]="pickerConfig">
 </div>
 

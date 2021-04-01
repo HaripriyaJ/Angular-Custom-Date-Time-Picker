@@ -1,4 +1,4 @@
-import { ElementRef } from "@angular/core";
+export const PlaceholderText = 'Datetime picker';
 
 export const DefaultTimeConstants = {
     START_OF_DAY: 'from',
