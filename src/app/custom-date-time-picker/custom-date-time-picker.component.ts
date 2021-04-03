@@ -66,7 +66,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   dateSelectionDone(finalDate, finalTime) {
     this.isDateVisible = false;
     this.updateDateTime(finalDate, finalTime);
-    this.collapsePicker();
+    this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
   }
 
   updateDateTime(date, time) {
@@ -89,24 +89,24 @@ export class CustomDateTimePickerComponent implements OnInit {
   now() {
     this.time = new Date(CustomDateTimePicker.currentDateTime());
     this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
-    this.collapsePicker();
+    this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
   }
 
   today() {
     this.date = new Date(CustomDateTimePicker.currentDate());
     this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
-    this.collapsePicker();
+    this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
   }
   
   clear() {
     // Make API call to update value if necessary
-    this.pickerService.assignSelectedValue(this.parentElement, null, this.invokeElementType);
+    this.collapsePicker(this.parentElement, null, this.invokeElementType)
   }
 
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
-      this.collapsePicker();
+      this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
     }
     else this.insideClickStatus = false;
   }
@@ -115,9 +115,9 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.insideClickStatus = true;
   }
 
-  collapsePicker() {
+  collapsePicker(parentElement, dateTime, invokeElementType) {
     // Make API call to update value if necessary
-    this.pickerService.assignSelectedValue(this.parentElement, this.dateTime, this.invokeElementType);
-    this.pickerService.checkInstanceAvailability(this.parentElement) && this.pickerService.removeInstance(this.parentElement, this.invokeElementType);
+    this.pickerService.assignSelectedValue(parentElement, dateTime, invokeElementType);
+    this.pickerService.checkInstanceAvailability(parentElement) && this.pickerService.removeInstance(parentElement, invokeElementType);
   }
 }

@@ -5,8 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
-import { AlertModule} from 'ngx-bootstrap/alert';
-import { PopoverModule} from 'ngx-bootstrap/popover';
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -24,8 +22,6 @@ import { CustomDateTimePickerComponent } from './custom-date-time-picker/custom-
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    AlertModule.forRoot(),
-    PopoverModule.forRoot(),
     DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     TooltipModule.forRoot()
