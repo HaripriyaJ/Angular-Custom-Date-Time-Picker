@@ -6,7 +6,7 @@ import { CustomDateTimePickerService } from './custom-date-time-picker.service';
 @Directive({
   selector: '[customDateTimePicker]'
 })
-export class PickerDirective {
+export class CustomDateTimePickerDirective {
 
   // Input to directive
   @Input() customDateTimePicker: DateTimePickerConfig;
