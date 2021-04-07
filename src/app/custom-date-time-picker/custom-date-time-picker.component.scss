@@ -7,22 +7,24 @@ $button-color: #f15f2e;
     padding: 6px;
     margin-top: 13px;
     min-width: 266px;
+    background-color: $white;
     display: inline-block;
 }
 
+// Styling for picker to be displayed as popover
 .datetime-picker-replica::before {
     content: "";
     position: relative;
     top: -15px;
     left: 15px;
     padding: 8px;
-    background-color: #fff;
     border-left: 1px solid rgba(0, 0, 0, 0.2);
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     display: inline-block;
     transform: rotate(45deg);
 }
 
+// Align calendar if displayed as popover
 .align-calendar {
     position: relative; 
     top: -14px;
@@ -44,14 +46,7 @@ datepicker, timepicker {
     
     .btn.active, .btn:active {
         box-shadow: none !important;
-    }
-    
-    .btn-info.active, .btn-info:active, .open>.dropdown-toggle.btn-info, .btn-info  {
-        background-color: $button-color !important;
-        border-color: $button-color !important;
-        color: $white !important;
-    }
-    
+    }    
 }
 
 daypicker, monthpicker, yearpicker  {
@@ -64,6 +59,7 @@ daypicker, monthpicker, yearpicker  {
             outline: none !important;
             border: none !important;
         }
+        // Highlight currently selected date or focused item
         &:hover, &.active {
             background-color: $button-color !important;
             border-color: $button-color !important;
@@ -79,6 +75,7 @@ daypicker, monthpicker, yearpicker  {
             font-family: 'Frutiger LT Std Bold' !important;
             font-size: small;
         }
+        // Section to display Month or Year
         thead tr:first-child th:nth-child(odd) button {
             font-size: medium !important;
         }
