@@ -57,7 +57,7 @@ export class CustomDateTimePickerService {
     }
     else {
       const instance = this.getInstance(parentElement);
-      instance.viewContainer.clear();
+      instance.viewContainer.clear(); // removes date-time picker instance from the view container for non-input tags (i.e, div, span etc)
       if(dateTime) {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CustomDateTimeValueTemplate);
         const componentRef = instance.viewContainer.createComponent<CustomDateTimeValueTemplate>(componentFactory, 0);

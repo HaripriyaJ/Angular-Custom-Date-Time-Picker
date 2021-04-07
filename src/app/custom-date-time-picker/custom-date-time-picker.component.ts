@@ -86,12 +86,14 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.isTimeVisible = true;
   }
 
+  // Ignore date reset - the date reset is a result of fetching value from localstorage (replace it with API call)
   now() {
     this.time = new Date(CustomDateTimePicker.currentDateTime());
     this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
     this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
   }
 
+  // Ignore time reset - the time reset is a result of fetching value from localstorage (replace it with API call)
   today() {
     this.date = new Date(CustomDateTimePicker.currentDate());
     this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
