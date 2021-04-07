@@ -28,27 +28,30 @@ $button-color: #f15f2e;
     top: -14px;
 }
 
-.well {
-    padding: 0px !important;
-    background-color: transparent !important; 
-    border: none !important; 
-    box-shadow: none !important; 
-    margin-bottom: 0px !important;
-}
-
-button:focus {
-    outline: none !important;
-    border: none !important;
-}
-
-.btn.active, .btn:active {
-    box-shadow: none !important;
-}
-
-.btn-info.active, .btn-info:active, .open>.dropdown-toggle.btn-info, .btn-info  {
-    background-color: $button-color !important;
-    border-color: $button-color !important;
-    color: $white !important;
+datepicker, timepicker {
+    .well {
+        padding: 0px !important;
+        background-color: transparent !important; 
+        border: none !important; 
+        box-shadow: none !important; 
+        margin-bottom: 0px !important;
+    }
+    
+    button:focus {
+        outline: none !important;
+        border: none !important;
+    }
+    
+    .btn.active, .btn:active {
+        box-shadow: none !important;
+    }
+    
+    .btn-info.active, .btn-info:active, .open>.dropdown-toggle.btn-info, .btn-info  {
+        background-color: $button-color !important;
+        border-color: $button-color !important;
+        color: $white !important;
+    }
+    
 }
 
 daypicker, monthpicker, yearpicker  {
