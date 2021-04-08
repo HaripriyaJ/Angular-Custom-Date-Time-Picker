@@ -1,4 +1,5 @@
-<div class="datetime-picker" id="datetime-picker" [ngClass]="{'datetime-picker-replica': invokeElementType === 'input'}">
+<div id="datetime-picker"
+    [ngClass]="{'datetime-picker-replica': invokeElementType === 'input', 'datetime-picker': invokeElementType !== 'input'}">
     <div (click)="insideClick()" [ngClass]="{'align-calendar': invokeElementType === 'input'}">
         <datepicker [hidden]="!isDateVisible" [yearRange]="yearRange" [(ngModel)]="date" [showWeeks]="false"
             (selectionDone)="dateSelectionDone($event, time)" [yearColLimit]="yearColLimit">

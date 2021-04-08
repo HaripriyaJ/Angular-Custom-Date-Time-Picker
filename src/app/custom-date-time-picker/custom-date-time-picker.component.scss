@@ -1,7 +1,21 @@
 $white: #fff;
 $button-color: #f15f2e;
 
-.datetime-picker, .datetime-picker-replica {
+.datetime-picker {
+    font-family: 'Frutiger LT Std Light', 'Open Sans', Arial !important;
+    border: 1px solid rgba(0,0,0,.2);
+    padding: 6px;
+    min-width: 210px;
+    background-color: $white;
+    display: inline-block;
+    .btn, 
+    .btn-group-sm>.btn, 
+    .btn-sm {
+        padding: 5px 7px !important;
+    }
+}
+
+.datetime-picker-replica {
     font-family: 'Frutiger LT Std Light', 'Open Sans', Arial !important;
     border: 1px solid rgba(0,0,0,.2);
     padding: 6px;
