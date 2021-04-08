@@ -1,5 +1,4 @@
 import { ComponentFactoryResolver, Injectable, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { PlaceholderText } from './custom-date-time-picker.config';
 import { CustomDateTimeValueTemplate } from './custom-date-time-value-template.component';
 
 interface PickerInstance {
@@ -53,7 +52,7 @@ export class CustomDateTimePickerService {
 
   assignSelectedValue(parentElement:any, dateTime: string, invokeElementType: string) {
     if(invokeElementType === 'input') {
-      parentElement.placeholder = dateTime || PlaceholderText;
+      parentElement.value = dateTime || null;
     }
     else {
       const instance = this.getInstance(parentElement);

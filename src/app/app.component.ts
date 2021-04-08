@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultTimeConstants, PlaceholderText } from './custom-date-time-picker/custom-date-time-picker.config';
+import { DefaultTimeConstants } from './custom-date-time-picker/custom-date-time-picker.config';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +8,6 @@ import { DefaultTimeConstants, PlaceholderText } from './custom-date-time-picker
 
 export class AppComponent  {
   dateTime;
-  
-  placeholderText = PlaceholderText;
   
   pickerConfig = {
     showMeridian: true,

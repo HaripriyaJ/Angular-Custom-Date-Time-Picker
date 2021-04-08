@@ -1,5 +1,3 @@
-export const PlaceholderText = 'Datetime picker';
-
 export const DefaultTimeConstants = {
     START_OF_DAY: 'from',
     END_OF_DAY: 'to',
