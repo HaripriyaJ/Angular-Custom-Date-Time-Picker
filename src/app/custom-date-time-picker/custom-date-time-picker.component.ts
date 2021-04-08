@@ -108,7 +108,15 @@ export class CustomDateTimePickerComponent implements OnInit {
   @HostListener('document:click', ['$event']) outsideClick(event: Event) {
     if(this.parentElement !== event.target && !this.insideClickStatus && !this.pickerOptions.nativeElement.contains(event.target)) {
       this.insideClickStatus = false;
-      this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
+      // Retain value displaying tag if selected
+      const instance = this.pickerService.getInstance(this.parentElement);
+      if (this.invokeElementType !== 'input' && instance.viewContainer.length > 1) {
+        for(let index = 1; index < instance.viewContainer.length; index++) {
+          instance.viewContainer.remove(index);
+        }
+      } 
+      else instance.viewContainer.clear();
+      this.pickerService.checkInstanceAvailability(this.parentElement) && this.pickerService.removeInstance(this.parentElement, this.invokeElementType);
     }
     else this.insideClickStatus = false;
   }
