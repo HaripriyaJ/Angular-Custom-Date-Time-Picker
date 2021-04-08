@@ -46,12 +46,10 @@ export class CustomDateTimePickerComponent implements OnInit {
 
     this.showMeridian = this.dateTimePickerConfig.showMeridian;
   
+    // If datetime value is not specified, current date is selected with 12:00 AM as default time
     this. dateTime =  this.dateTimePickerConfig.dateTime ?  
       this.dateTimePickerConfig.dateTime : 
       CustomDateTimePicker.assignDefaultTime(this.defaultTimeSetting, new Date(CustomDateTimePicker.currentDate()));
-
-    // just for getting value sake
-    localStorage.setItem('dateTime', this.dateTime);
 
     this.date = new Date(this.dateTime.split(" ")[0]);
 
