@@ -84,14 +84,21 @@ export class CustomDateTimePickerComponent implements OnInit {
     this.isTimeVisible = true;
   }
 
-  // Ignore date reset - the date reset is a result of fetching value from localstorage (replace it with API call)
+  /* Ignore date reset - 
+      The date reset is a result of destruction of picker component on collapse. The value is reinitialized in ngOnInit to takeup current date by default.
+      Persist the changes while date selection to make appropriate use of this feature i.e., sets previous time to current time while preserving date.
+  */
   now() {
+    console.log(this.date);
     this.time = new Date(CustomDateTimePicker.currentDateTime());
     this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
     this.collapsePicker(this.parentElement, this.dateTime, this.invokeElementType);
   }
 
-  // Ignore time reset - the time reset is a result of fetching value from localstorage (replace it with API call)
+  /* Ignore time reset - 
+      The time reset is a result of destruction of picker component on collapse. The value is reinitialized in ngOnInit to takeup current date and time as defaultTimeSetting by default.
+      Persist the changes while date selection to make appropriate use of this feature i.e., sets previous date to current date while preserving time.
+  */
   today() {
     this.date = new Date(CustomDateTimePicker.currentDate());
     this.dateTime = CustomDateTimePicker.getDateTime(this.date, this.time);
@@ -99,7 +106,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
   
   clear() {
-    // Make API call to update value if necessary
+    /* Place to make API calls */
     this.collapsePicker(this.parentElement, null, this.invokeElementType)
   }
 
@@ -124,7 +131,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   }
 
   collapsePicker(parentElement, dateTime, invokeElementType) {
-    // Make API call to update value if necessary
+    /* Place to make API calls */
     this.pickerService.assignSelectedValue(parentElement, dateTime, invokeElementType);
     this.pickerService.checkInstanceAvailability(parentElement) && this.pickerService.removeInstance(parentElement, invokeElementType);
   }
