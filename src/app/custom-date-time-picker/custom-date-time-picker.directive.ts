@@ -33,7 +33,8 @@ export class CustomDateTimePickerDirective {
       } 
       else {
         const instance = this.pickerService.getInstance(this.parentElement.nativeElement);
-        instance.viewContainer.clear();
+        // Retain value displaying tag if selected
+        instance.viewContainer.length > 1 ? instance.viewContainer.remove(1) : instance.viewContainer.clear();
         this.pickerService.removeInstance(event.target, type);
       }
     } 

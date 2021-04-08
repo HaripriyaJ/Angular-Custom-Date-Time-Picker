@@ -34,9 +34,9 @@ export class CustomDateTimePickerService {
   removeInstance(parentElement:EventTarget, invokeElementType: string) {
     const viewContainer = this.getInstance(parentElement).viewContainer;
     if (invokeElementType === 'input')  {
-      viewContainer.clear()
-      this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== parentElement);
+      viewContainer.clear();
     }
+    this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== parentElement);
   }
 
   checkInstanceAvailability(parentElement:EventTarget) {
