@@ -15,5 +15,6 @@ export interface DateTimePickerConfig {
     dateTimeFormat: string, // format date-time according to 12-hour or 24-hour clock
     dateTime?: string,
     defaultTimeCode: string,
-    invokeElement: EventTarget
+    invokeElement: EventTarget,
+    minDate?: Date
 }

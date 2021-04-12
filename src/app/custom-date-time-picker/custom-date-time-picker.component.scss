@@ -95,6 +95,13 @@ yearpicker {
       }
     }
   }
+  .btn.disabled:hover, 
+  .btn[disabled]:hover,
+  .btn.btn-sm.disabled.btn-default:hover .text-info {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #000 !important;
+  }
 
   table {
     width: 100%;
