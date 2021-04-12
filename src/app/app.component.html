@@ -1,7 +1,7 @@
+<!-- Get output value from directive -->
 <div style="margin: 10px;">
     <input type="text" name="picker" id="1" class="form-control" readonly placeholder="Datetime picker"
-        [customDateTimePicker]="pickerConfig" (pickerValue)="pickerValue">
-
+        [customDateTimePicker]="pickerConfig" (pickerValue)="pickerValue($event)">
 </div>
 
 <div style="margin: 10px;">

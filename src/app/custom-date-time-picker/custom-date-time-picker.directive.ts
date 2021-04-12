@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, Directive, ElementRef, EventEmitter, HostListener, Input, Output, ViewContainerRef } from '@angular/core';
 import { CustomDateTimePickerComponent } from './custom-date-time-picker.component';
 import { DateTimePickerConfig } from './custom-date-time-picker.config';
 import { CustomDateTimePickerService } from './custom-date-time-picker.service';
@@ -6,7 +6,7 @@ import { CustomDateTimePickerService } from './custom-date-time-picker.service';
 @Directive({
   selector: '[customDateTimePicker]'
 })
-export class CustomDateTimePickerDirective implements OnInit {
+export class CustomDateTimePickerDirective {
 
   // Input to directive
   @Input() customDateTimePicker: DateTimePickerConfig;
@@ -44,9 +44,6 @@ export class CustomDateTimePickerDirective implements OnInit {
   passDateTimeConfig(componentRef, parentElement) {
     this.customDateTimePicker.invokeElement = parentElement;
     componentRef.instance.dateTimePickerConfig = this.customDateTimePicker;
-  }
-
-  ngOnInit() {
-    this.pickerService.pickerValue.subscribe(value => this.pickerValue.emit(value));
+    componentRef.instance.pickerValue.subscribe(selectedDateTime => this.pickerValue.emit(selectedDateTime));
   }
 }

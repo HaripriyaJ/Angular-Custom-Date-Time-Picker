@@ -19,8 +19,6 @@ export class CustomDateTimePickerService {
   pickerInstances:PickerInstance[] = [];
   @ViewChild('template') _template: TemplateRef<any>;
 
-  pickerValue = new Subject<string>();
-
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   setInstance(viewContainer: ViewContainerRef, invokeElement: EventTarget, invokeElementType: string, instance: any, embeddedView: any) {
@@ -68,6 +66,5 @@ export class CustomDateTimePickerService {
       }
       this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== parentElement);
     }
-    this.pickerValue.next(dateTime);
   }
 }

@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewEnca
 import { DateTimePickerConfig, DefaultTimeConstants } from './custom-date-time-picker.config';
 import { CustomDateTimePicker } from './custom-date-time-picker';
 import { CustomDateTimePickerService } from './custom-date-time-picker.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'custom-date-time-picker',
@@ -24,6 +25,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   yearColLimit = 4; // display calendar with 4 columns
 
   @Input() dateTimePickerConfig: DateTimePickerConfig;
+  pickerValue = new Subject<string>();
 
   dateTime: string;
   defaultTimeSetting: string; // setting default time value to choose
@@ -133,6 +135,7 @@ export class CustomDateTimePickerComponent implements OnInit {
   collapsePicker(parentElement, dateTime, invokeElementType) {
     /* Place to make API calls */
     this.pickerService.assignSelectedValue(parentElement, dateTime, invokeElementType);
+    this.pickerValue.next(dateTime);
     this.pickerService.checkInstanceAvailability(parentElement) && this.pickerService.removeInstance(parentElement, invokeElementType);
   }
 }
