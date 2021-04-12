@@ -1,5 +1,6 @@
 import { ComponentFactoryResolver, Injectable, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { CustomDateTimeValueTemplate } from './custom-date-time-value-template.component';
+import { Subject } from 'rxjs';
 
 interface PickerInstance {
   viewContainer: ViewContainerRef,
@@ -17,6 +18,8 @@ export class CustomDateTimePickerService {
 
   pickerInstances:PickerInstance[] = [];
   @ViewChild('template') _template: TemplateRef<any>;
+
+  pickerValue = new Subject<string>();
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
@@ -65,5 +68,6 @@ export class CustomDateTimePickerService {
       }
       this.pickerInstances = this.pickerInstances.filter(eachInstance => eachInstance.invokeElement !== parentElement);
     }
+    this.pickerValue.next(dateTime);
   }
 }

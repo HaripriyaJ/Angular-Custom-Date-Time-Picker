@@ -15,4 +15,9 @@ export class AppComponent  {
     dateTime: null, // API call to get value if already selected
     defaultTimeCode: DefaultTimeConstants.END_OF_DAY
   }
+
+  // Get selected output
+  pickerValue($event) {
+    console.log($event)
+  }
 };

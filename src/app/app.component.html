@@ -1,6 +1,7 @@
 <div style="margin: 10px;">
     <input type="text" name="picker" id="1" class="form-control" readonly placeholder="Datetime picker"
-        [customDateTimePicker]="pickerConfig">
+        [customDateTimePicker]="pickerConfig" (pickerValue)="pickerValue">
+
 </div>
 
 <div style="margin: 10px;">
